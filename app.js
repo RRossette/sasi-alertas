@@ -7,28 +7,24 @@ const port = process.env.PORT || 3000
 
 app.use(cors())
 app.use(express.json())
+app.use(express.limit('1gb'))
 
 app.get('/', (req, res) => {
     res.status(200).send({ msg: "Funcionando!!!" })
 })
 
 app.post("/send-sasi", async (req, res) => {
-    const images = req.body.user_images
-    const data = req.body.body_data
-    const token = req.headers.authorization
-    const title = req.body.title
-    const anonymous = req.body.anonymous
-    const test = req.body.test
-    const channel = req.body.channelId
+    const { user_images, body_data, title, anonymous, test, channelId } = req.body;
+    const { authorization } = req.headers;
 
     const data_send = {
-        images,
-        data,
-        token,
+        images: user_images,
+        data: body_data,
+        token: authorization,
         title,
         anonymous,
         test,
-        channel
+        channel: channelId
     }
 
     console.log("user_images: ")
