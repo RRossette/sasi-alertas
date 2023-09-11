@@ -37,6 +37,7 @@ const sendSasi = async (data_obj) => { //aqui tá funcionando
             return dataAttachments;
         })
         .then(async (dataAttachments) => {
+            console.log('sending alert to sasi with ' + dataAttachments);
             return await send_sasi_api(session, dataAttachments);
         })
         .catch(console.error);
